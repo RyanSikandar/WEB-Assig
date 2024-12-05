@@ -1,0 +1,307 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Open Sans", sans-serif;
+}
+
+/* Style for the main header */
+.main-header {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100vh;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url('../assets/header-aboutus-bg.jpg') center/cover no-repeat;
+}
+
+/* Style for the section inside the header */
+.header-section {
+  height: 20vh;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* padding: 20px 2rem; */
+  padding: 2rem 5rem;
+  /* position: fixed;
+  top: 0;
+  width: 100vw; */
+}
+
+/* Style for the logo container */
+.logo-container {
+  height: 100%;
+}
+
+/* Style for the logo image */
+.logo {
+  height: 100%;
+}
+
+
+.navbar {
+  width: 30%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.5rem;
+}
+
+@media (max-width: 1060px) {
+  .navbar {
+    width: 60%;
+  }
+}
+
+/* Style for the navigation links */
+.nav-link {
+  text-decoration: none;
+  color: white;
+  font-weight: 600;
+  transition: all 0.2s ease-in-out;
+}
+
+.nav-link:hover {
+  /* position: relative;
+    bottom: .5rem;
+    z-index: 10; */
+  transform: translateY(-0.5rem);
+  border-bottom: 4px solid white;
+}
+
+.header-text {
+  color: white;
+  font-size: 2rem;
+  font-weight: 600;
+  margin-left: 25vh;
+  margin-bottom: 10vh;
+}
+
+
+@media (max-width: 650px) {
+  .header-section {
+    padding: 2rem 1rem;
+  }
+
+  .nav-link {
+    margin-top: 1rem;
+  }
+
+  .nav-link:first-child {
+    margin-top: 0;
+  }
+
+  .navbar {
+    flex-direction: column;
+    width: fit-content;
+    align-items: flex-end;
+  }
+}
+
+
+.about-section {
+
+  display: flex;
+  flex-direction: row;
+  height: auto;
+  font-size: 20px;
+}
+
+.first-half {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  padding-top: 5%;
+  padding-left: 15%;
+  padding-right: 5%;
+  gap: 20px;
+}
+
+.second-half {
+  width: 50%;
+  background-color: #7F5E01;
+}
+
+.about-section-image {
+  height: 80%;
+  padding-top: 10%;
+  padding-left: 10%;
+}
+
+.features {
+  margin-top: 10%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.text-with-icon {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+
+}
+
+.text-of-icon {
+  display: flex;
+  flex-direction: column;
+}
+
+.icon {
+  width: 70px;
+  height: 70px;
+}
+
+.our-team {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-align: center;
+}
+.our-team-heading{
+  display: flex;
+  flex-direction: column;
+  padding: 5rem;
+  gap: 15px;
+}
+
+.our-team-heading h2{
+  font-size: 3rem;
+}
+
+.our-team-heading p{
+  font-size: 1.5rem;
+}
+
+
+
+
+
+.team-pics {
+  display: flex;
+  flex-direction: row;
+  gap: 20px; /* Increase the gap for better spacing */
+  justify-content: space-around;
+}
+.social-text {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(0, 0, 0, 0.6); /* Semi-transparent background for contrast */
+  color: white; /* Text color */
+  padding: 5px; /* Some padding around the text */
+  text-align: center; /* Center text */
+  border-radius: 4px; /* Rounded corners for a nicer look */
+}
+
+.social-text a {
+  color: white; 
+  text-decoration: none; 
+}
+
+.team-member {
+  position: relative;
+  width: 30%; /* Ensuring each member takes up 30% of the width */
+  height: 100%;
+}
+
+
+.team-member img {
+  width: 100%;
+  height: 650px;
+}
+
+.team-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.6); /* Semi-transparent background */
+  color: white;
+  text-align: center;
+  padding: 10px;
+  opacity: 0; /* Start hidden */
+  transition: opacity 0.3s; /* Smooth transition */
+}
+
+.team-member:hover .team-info {
+  opacity: 1; /* Show on hover */
+}
+
+
+
+
+
+footer {
+  height: 25vh;
+  background-color: black;
+  color: white;
+  padding-bottom: 1rem;
+}
+
+.footer-content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  text-align: center;
+  padding: 1rem;
+}
+
+
+@media (max-width: 800px) {
+  .about-section {
+    flex-direction: column; /* Stack vertically on smaller screens */
+  }
+
+  .first-half, .second-half {
+    width: 100%; /* Full width for both halves */
+    padding-left: 5%; /* Adjust padding for better spacing */
+    padding-right: 5%;
+  }
+
+  .second-half{
+    margin-top: 2rem;
+  }
+
+  .about-section-image {
+    height: auto; /* Allow image height to adjust */
+    width: 90%; /* Set to a percentage for smaller screens */
+    max-width: 300px; /* Optional: set a max width for smaller screens */
+    padding-top: 5%; /* Adjust padding for better spacing */
+  }
+
+  .team-pics {
+    flex-direction: column; /* Stack images vertically on smaller screens */
+    align-items: center; /* Center images */
+  }
+
+  .team-member {
+    width: 100%; /* Full width for each member */
+    max-width: 300px; /* Optional: set a max width for each member */
+  }
+
+  .team-member img {
+    height: auto; /* Allow height to adjust automatically */
+    width: 100%; /* Full width for the image */
+  }
+
+  .main-header {
+    height: 60vh; /* Adjust height for smaller screens if necessary */
+    background-size: cover; /* Ensure the image covers the area */
+    background-position: center; /* Center the background image */
+  }
+
+  .header-section {
+    padding: 2rem 1rem; /* Adjust padding for better spacing */
+  }
+
+  .header-text {
+    margin-left: 5vh;
+  }
+}
