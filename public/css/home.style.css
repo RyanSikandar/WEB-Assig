@@ -8,6 +8,38 @@ body {
   font-family: "Open Sans", sans-serif;
 }
 
+.modal {
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.9);
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px
+}
+
+#signup-form, #login-form {
+  color: white;
+}
+
+.signup-form-div {
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
+}
+
+
+.logout {
+  background-color: transparent;
+  outline: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
 .main-header {
   height: 200vh;
   padding-bottom: 2rem;
@@ -27,11 +59,16 @@ a.button {
 .arrow {
   text-decoration: none;
   color: white;
-  background-color: transparent; /* Transparent background */
-  border: 2px solid white; /* White border */
-  border-radius: 50px; /* Capsule-like shape */
-  padding: 2rem 4rem; /* Increased padding for a larger button */
-  font-size: 1.5rem !important; /* Use !important if necessary */
+  background-color: transparent;
+  /* Transparent background */
+  border: 2px solid white;
+  /* White border */
+  border-radius: 50px;
+  /* Capsule-like shape */
+  padding: 2rem 4rem;
+  /* Increased padding for a larger button */
+  font-size: 1.5rem !important;
+  /* Use !important if necessary */
   margin: 1em 0;
   transition: background-color 0.3s ease-out, color 0.3s ease-out;
 
@@ -43,13 +80,13 @@ a.button {
   }
 
   &:hover {
-    background-color: rgba(
-      255,
-      255,
-      255,
-      0.2
-    ); /* Light transparent background on hover */
-    color: white; /* White text on hover */
+    background-color: rgba(255,
+        255,
+        255,
+        0.2);
+    /* Light transparent background on hover */
+    color: white;
+    /* White text on hover */
 
     &::after {
       transform: translateX(4px);
@@ -162,6 +199,7 @@ a.button {
   .nav-link:first-child {
     margin-top: 0;
   }
+
   .navbar {
     flex-direction: column;
     width: fit-content;
@@ -539,16 +577,16 @@ footer {
 }
 
 .text-style-btn:hover {
-    background-color: rgba(
+  background-color: rgba(255,
       255,
       255,
-      255,
-      0.2
-    ); /* Light transparent background on hover */
-    color: white; /* White text on hover */
+      0.2);
+  /* Light transparent background on hover */
+  color: white;
+  /* White text on hover */
 
-    &::after {
-      transform: translateX(4px);
-    }
-  
+  &::after {
+    transform: translateX(4px);
+  }
+
 }

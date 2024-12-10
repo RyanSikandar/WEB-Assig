@@ -1,15 +1,56 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PK Guides</title>
+    <title>PK Gu0ides</title>
     <link rel="stylesheet" href="home.style.css" />
     <link rel="stylesheet" href="{{ asset('css/home.style.css') }}">
 </head>
 
-<body>
+<body> -->
+
+    @extends('layouts.master')
+
+    @section('title', 'Home')
+
+    @section('styles')
+        <link rel="stylesheet" href="{{ asset('css/home.style.css') }}">
+    @endsection
+
+    @section('js')
+        <script src="{{ asset('js/home.js') }}"></script>
+    @endsection
+
+    @section('content')
+    <div class="modal">
+        <button class="text-style-btn" id="login-button" onclick="showLoginForm()">Login</button>
+        <button class="text-style-btn" id="signup-button" onclick="showSignupForm()">Signup</button>
+
+            <form id="signup-form">
+                <div class="signup-form-div">
+                <h2>Signup</h2>
+                <label for="signup-email">Email:</label>
+                <input type="email" id="signup-email" name="email" placeholder="Enter your email" required>
+                <label for="signup-password">Password:</label>
+                <input type="password" id="signup-password" name="password" placeholder="Enter your password" required>
+                <button type="submit" class="">Signup</button>
+                </div>
+            </form>
+
+            <form id="login-form">
+                <div class="signup-form-div">
+                <h2>Login</h2>
+                <label for="signup-email">Email:</label>
+                <input type="email" id="signup-email" name="email" placeholder="Enter your email" required>
+                <label for="signup-password">Password:</label>
+                <input type="password" id="signup-password" name="password" placeholder="Enter your password" required>
+                <button type="submit" class="">Signup</button>
+                </div>
+            </form>
+        
+    </div>
     <header class="main-header">
         <section class="header-section">
             <div class="logo-container">
@@ -19,6 +60,7 @@
                 <a href="/" class="nav-link">Home</a>
                 <a href="/about" class="nav-link">About Us</a>
                 <a href="/services" class="nav-link">Services</a>
+                    <button onclick="logout()" class="nav-link logout">Logout</a>
             </nav>
         </section>
 
@@ -40,72 +82,15 @@
         
 
         <div class="services-container">
-            <div class="service">
-                <div class="service-icon-container">
-                    <img src="assets/city-icon.png" alt="icon" class="service-icon" />
-                </div>
-                <h2 class="service-heading">City Tours</h2>
-                <p class="service-description">
-                    Explore major attractions and hidden gems in a city, guided by local
-                    insights and stories.
-                </p>
-            </div>
-
-            <div class="service">
-                <div class="service-icon-container">
-                    <img src="assets/adventure-icon.png" alt="icon" class="service-icon" />
-                </div>
-                <h2 class="service-heading">Adventure Tours</h2>
-                <p class="service-description">
-                    Engage in thrilling outdoor activities like hiking, zip-lining, or
-                    rock climbing in scenic locations.
-                </p>
-            </div>
-
-            <div class="service">
-                <div class="service-icon-container">
-                    <img src="assets/vase.png" alt="icon" class="service-icon" />
-                </div>
-                <h2 class="service-heading">Cultural Experiences</h2>
-                <p class="service-description">
-                    Immerse yourself in local culture through food tastings, traditional
-                    crafts, and local festivals.
-                </p>
-            </div>
-
-            <div class="service">
-                <div class="service-icon-container">
-                    <img src="assets/history.png" alt="icon" class="service-icon" />
-                </div>
-                <h2 class="service-heading">Historical Tours</h2>
-                <p class="service-description">
-                    Discover historical sites and learn about significant events that
-                    shaped the area.
-                </p>
-            </div>
-
-            <div class="service">
-                <div class="service-icon-container">
-                    <img src="assets/restaurant.png" alt="icon" class="service-icon" />
-                </div>
-                <h2 class="service-heading">Food Tours</h2>
-                <p class="service-description">
-                    Sample local cuisine at markets and restaurants, exploring culinary
-                    traditions and specialties.
-                </p>
-            </div>
-
-            <div class="service">
-                <div class="service-icon-container">
-                    <img src="assets/nature.png" alt="icon" class="service-icon" />
-                </div>
-                <h2 class="service-heading">Nature Tours</h2>
-                <p class="service-description">
-                    Experience the beauty of local ecosystems through guided hikes and
-                    wildlife watching.
-                </p>
-            </div>
+            @foreach ($services as $service)
+                @include('partials._service', [
+                    'heading' => $service['name'],
+                    'description' => $service['description'],
+                    'image' => $service['image_url']
+                ])
+            @endforeach
         </div>
+        
     </header>
 
     <section class="main-destinations">
@@ -269,24 +254,16 @@
             <button type="submit" class="submit-button">Submit</button>
         </form>
     </section>
+@endsection
+    
 
 
 
     <!-- Footer Section -->
-    <footer>
-        <div class="footer-content">
-          <p>Contact us: pkguides@example.com | +123 456 7890</p>
-          <p>Follow us:
-            <a href="#" class="nav-link">Facebook</a> |
-            <a href="#" class="nav-link">Instagram</a> |
-            <a href="#" class="nav-link">Twitter</a>
-          </p>
-          <p>© 2024 PK Guides. All Rights Reserved.</p>
-        </div>
-      </footer>
+    
 
-      <script src="{{ asset('js/home.js') }}"></script>
+      <!-- <script src="{{ asset('js/home.js') }}"></script> -->
 
-</body>
+<!-- </body>
 
-</html>
+</html> -->

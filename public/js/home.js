@@ -96,3 +96,139 @@ function validatePakistaniPhone(phone) {
     const phoneRegex = /^[0-9]{3}-[0-9]{7}$/;
     return phoneRegex.test(phone);
 }
+
+
+const loginButton = document.querySelector('#login-button');
+const signupButton = document.querySelector('#signup-button');
+const modal = document.querySelector('.modal');
+const signupForm = document.querySelector('#signup-form');
+signupForm.style.display = 'none'; // Hide the signup form initially
+
+const loginForm = document.querySelector('#login-form');
+loginForm.style.display = 'none'; // Hide the signup form initially
+
+if (localStorage.getItem('isloggedin')) {
+    modal.style.display = "none";
+}
+
+
+// Function to show the signup form
+function showSignupForm() {
+    loginButton.style.display = 'none'; // Hide login button
+    signupButton.style.display = 'none'; // Hide signup button
+    signupForm.style.display = 'block'; // Show the signup form
+}
+
+
+// Function to show the signup form
+function showLoginForm() {
+    loginButton.style.display = 'none'; // Hide login button
+    signupButton.style.display = 'none'; // Hide signup button
+    loginForm.style.display = 'block'; // Show the signup form
+}
+
+// Attach event listener for Signup button
+signupButton.addEventListener('click', showSignupForm);
+
+// Handle Signup form submission
+signupForm.addEventListener('submit', async (e) => {
+    e.preventDefault(); // Prevent default form submission behavior
+
+    const email = document.querySelector('#signup-email').value.trim();
+    const password = document.querySelector('#signup-password').value.trim();
+
+    // Form validation
+    if (!email || !password) {
+        alert('Please provide both email and password.');
+        return;
+    }
+
+    try {
+        // Send a POST request to the /register endpoint
+        const response = await fetch('/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content, // Ensure CSRF token is included
+            },
+            body: JSON.stringify({ email, password }),
+        });
+
+        if (response.ok) {
+            const result = await response.json();
+            alert(`Signup successful! Welcome, ${result.user.email}`);
+            modal.style.display = 'none'; // Hide the modal
+            localStorage.setItem('isloggedin', true);
+        } else {
+            const errorData = await response.json();
+            alert(`Signup failed: ${errorData.message || 'Unknown error occurred.'}`);
+        }
+    } catch (error) {
+        alert(`An error occurred: ${error.message}`);
+    }
+});
+
+function logout() {
+    fetch('/logout', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+        },
+    })
+        .then((response) => {
+            console.log(response);
+            
+            if (response.ok) {
+                alert('Logout successful');
+                localStorage.removeItem('isloggedin');
+                window.location.href = '/'; // Redirect to home page
+            } else {
+                alert('Failed to logout');
+            }
+        })
+        .catch((error) => {
+            console.error('Error during logout:', error);
+        });
+}
+
+
+// Handle Login form submission
+loginForm.addEventListener('submit', async (e) => {
+    e.preventDefault(); // Prevent default form submission behavior
+
+    const email = document.querySelector('#login-form #signup-email').value.trim();
+    const password = document.querySelector('#login-form #signup-password').value.trim();
+
+    // Form validation
+    if (!email || !password) {
+        alert('Please provide both email and password.');
+        return;
+    }
+
+    try {
+        // Send a POST request to the /login endpoint
+        const response = await fetch('/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content, // Ensure CSRF token is included
+            },
+            body: JSON.stringify({ email, password }),
+
+        });
+
+        if (response.ok) {
+            const result = await response.json();
+            alert(`Login successful! Welcome back, ${result.user.email}`);
+            modal.style.display = 'none'; // Hide the modal
+            localStorage.setItem('isloggedin', true);
+
+        } else {
+            const errorData = await response.json();
+            alert(`Login failed: ${errorData.message || 'Unknown error occurred.'}`);
+        }
+    } catch (error) {
+        alert(`An error occurred: ${error.message}`);
+    }
+});

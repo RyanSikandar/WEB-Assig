@@ -7,13 +7,10 @@ body {
 }
 
 .carousel {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    max-width: 1200px;
-    margin: auto;
-    height: 100vh;
+  margin-bottom: 20vh;
 }
+
+
 
 .carousel-title {
     text-align: center;
@@ -159,6 +156,14 @@ input[type="radio"] {
     background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
       url('../assets/group-photo-at-attaabad.jpg') center/cover no-repeat;
   }
+
+  .logout {
+    background-color: transparent;
+    outline: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
   
   /* Style for the section inside the header */
   .header-section {
@@ -294,9 +299,23 @@ footer {
 
 
 
-
-
-
+.sticky-add-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 100px;
+  width: 60px;
+  height: 60px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease;
+}
 
 
 .sticky-cart-btn {
@@ -446,6 +465,8 @@ footer {
   cursor: pointer;
 }
 
+
+
 .btn {
   margin: 0; /* Remove default margin */
   padding: 10px 15px;
@@ -465,6 +486,16 @@ footer {
   background-color: #0056b3;
 }
 
+
+
+.remove-cart-btn {
+  background: rgb(255, 69, 69);
+}
+
+
+.remove-cart-btn:hover {
+  background: rgb(255, 18, 18);
+}
 
 .hidden-section {
   margin-top: 10px;

@@ -1,8 +1,34 @@
 let cartItems = [];
 let cartCounter = 0;
 
-function addToCart(title, rating, price) {
-    cartItems.push({ title, rating, price });
+
+function logout() {
+    fetch('/logout', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+        },
+    })
+        .then((response) => {
+            console.log(response);
+            
+            if (response.ok) {
+                alert('Logout successful');
+                localStorage.removeItem('isloggedin');
+                window.location.href = '/'; // Redirect to home page
+            } else {
+                alert('Failed to logout');
+            }
+        })
+        .catch((error) => {
+            console.error('Error during logout:', error);
+        });
+}
+
+
+function addToCart(title) {
+    cartItems.push({ title });
     cartCounter++;
     updateCartCounter();
 }
@@ -13,9 +39,38 @@ function openCartModal() {
     renderCartItems();
 }
 
+
+function openAddModal() {
+    document.getElementById('addModal').style.display = 'block';
+    document.querySelector('.sticky-add-btn').style.display = 'none';
+}
+
+
+function openUpdateModal(serviceId, serviceName, serviceDescription, serviceImageUrl) {
+    // console.log(serviceId, serviceName, serviceDescription, serviceImageUrl);
+    
+    document.getElementById('updateServiceId').value = serviceId;
+    // document.getElementById('serviceName').value = serviceName;
+    // document.getElementById('serviceDescription').value = serviceDescription;
+    // document.getElementById('serviceImageUrl').value = serviceImageUrl;
+    document.getElementById('updateModal').style.display = 'block';
+}
+
+
 function closeCartModal() {
     document.getElementById('cartModal').style.display = 'none';
     document.querySelector('.sticky-cart-btn').style.display = 'flex';
+}
+
+
+function closeAddModal() {
+    document.getElementById('addModal').style.display = 'none';
+    document.querySelector('.sticky-add-btn').style.display = 'flex';
+}
+
+
+function closeUpdateModal() {
+    document.getElementById('updateModal').style.display = 'none';
 }
 
 function renderCartItems() {
@@ -26,8 +81,6 @@ function renderCartItems() {
         cartItem.className = 'cart-item';
         cartItem.innerHTML = `
             <span class="cart-item-title">${item.title}</span>
-            <span class="cart-item-rating">${item.rating}</span>
-            <span class="cart-item-price">${item.price}</span>
             <button class="remove-btn" onclick="removeCartItem(${index})">&times;</button>
         `;
         cartItemsContainer.appendChild(cartItem);

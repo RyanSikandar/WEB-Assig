@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -6,21 +6,34 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PK Guides</title>
   <link rel="icon" type="image/png" href="assets/logo.png" />
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <link rel="stylesheet" href="{{ asset('css/services.style.css') }}">
 </head>
 
 <body>
 
-  <script src="{{asset('js/services.js')}}"></script>
+  <script src="{{asset('js/services.js')}}"></script> -->
+
+  @extends('layouts.master')
+
+  @section('title', 'Services')
+
+  @section('styles')
+  <link rel="stylesheet" href="{{ asset('css/services.style.css') }}">
+  @endsection
+
+  @section('content')
   <header class="main-header">
     <section class="header-section">
       <div class="logo-container">
         <img src="{{ asset('assets/logo.png') }}" alt="logo" class="logo" />
       </div>
+      
       <nav class="navbar">
         <a href="/" class="nav-link">Home</a>
         <a href="/about" class="nav-link">About Us</a>
         <a href="/services" class="nav-link">Services</a>
+            <button onclick="logout()" class="nav-link logout">Logout</a>
     </nav>
     </section>
 
@@ -41,97 +54,53 @@
       <input type="radio" name="carousel" id="item-2" />
       <input type="radio" name="carousel" id="item-3" />
 
-      <div class="carousel-items">
-        <div class="carousel-item">
-          <div class="card" id="card1">
-            <span class="price-badge">$125</span>
-            <img src="{{ asset('assets/atv.jpg') }}" alt="ATV" />
-            <div class="card-body">
-              <h3 class="card-title">ATV</h3>
-              <div class="card-rating">
-                <span>8.8</span>
-                <span class="star">★ ★ ★ ★ ☆</span>
-                <span>(411 Ratings)</span>
-              </div>
-              <div class="card-description-container">
-                <p class="card-description" id="details1">
-                  Experience the thrill of ATV riding in the breathtaking terrains of
-                  northern Pakistan, where adventure meets stunning landscapes.
-                </p>
+      @if (count($services) === 0)
+  <div style="text-align: center; margin: 50px 0; font-size: 1.5rem;">
+    <p>No services added! Add services by clicking the + icon.</p>
+  </div>
+  @endif
 
-                <div class="button-container">
-                  <button class="add-cart-btn" onclick="addToCart('ATV', '8.8', '$125')">
-                    Add to Cart
-                  </button>
-                  <button class="btn" onclick="showDetails('details1')">Show Details</button>
-                  <button class="btn" onclick="hideDetails('details1')">Hide Details</button>
-                  <button class="btn" onclick="changeBackgroundColor('card1')">Change Background Color</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
 
-        <div class="carousel-item">
-          <div class="card" id="card2">
-            <span class="price-badge">$450</span>
-            <img src="{{ asset('assets/yacht.jpg') }}" alt="Yacht Excursion" />
+      <div class="carousel">
+        
+      
+        @foreach ($services as $index => $service)
+        <div class="carousel-item @if($index === 0) active @endif">
+          <div class="card" id="card{{ $index + 1 }}">
+            <img src="{{ $service->image_url }}" alt="{{ $service->name }}" />
             <div class="card-body">
-              <h3 class="card-title">Yacht Excursion</h3>
-              <div class="card-rating">
-                <span>9.5</span>
-                <span class="star">★ ★ ★ ★ ★</span>
-                <span>(398 Ratings)</span>
-              </div>
+              <h3 class="card-title">{{ $service->name }}</h3>
               <div class="card-description-container">
-                <p class="card-description" id="details2">
-                  Experience the thrill of ATV riding in the breathtaking
-                  terrains of northern Pakistan, where adventure meets
-                  stunning landscapes.
+                <p class="card-description" id="details{{ $index + 1 }}">
+                  {{ $service->description }}
                 </p>
                 <div class="button-container">
-                  <button class="add-cart-btn" onclick="addToCart('Yatch Excursion', '9.5', '$450')">Add to Cart</button>
-                  <button class="btn" onclick="showDetails('details2')">Show Details</button>
-                  <button class="btn" onclick="hideDetails('details2')">Hide Details</button>
-                  <button class="btn" onclick="changeBackgroundColor('card2')">Change Background Color</button>
-                </div>
-               
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="carousel-item">
-          <div class="card" id="card3">
-            <span class="price-badge">$150</span>
-            <img src="{{ asset('assets/city-tour.jpg') }}" alt="Scuba Diving" />
-            <div class="card-body">
-              <h3 class="card-title">City Tours</h3>
-              <div class="card-rating">
-                <span>9.2</span>
-                <span class="star">★ ★ ★ ★ ★</span>
-                <span>(250 Ratings)</span>
-              </div>
-              <div class="card-description-container">
-                <p class="card-description"id="details3">
-                  Experience the thrill of ATV riding in the breathtaking
-                  terrains of northern Pakistan, where adventure meets
-                  stunning landscapes.
-                </p>
-                <div class="button-container">
-                  <button class="add-cart-btn" onclick="addToCart('City Tours', '9.2', '$150')">Add to Cart</button>
-                  <button class="btn" onclick="showDetails('details3')">Show Details</button>
-                  <button class="btn" onclick="hideDetails('details3')">Hide Details</button>
-                  <button class="btn" onclick="changeBackgroundColor('card3')">Change Background Color</button>
+                  <button class="add-cart-btn" onclick="addToCart('{{ $service->name }}')">Add to Cart</button>
+                  <button class="btn" onclick="showDetails('details{{ $index + 1 }}')">Show Details</button>
+                  <button class="btn" onclick="hideDetails('details{{ $index + 1 }}')">Hide Details</button>
+                  <button class="btn" onclick="changeBackgroundColor('card{{ $index + 1 }}')">Change Background Color</button>
+                  
+                  <button class="btn" onclick="openUpdateModal({{ $service->id }}, '{{ $service->name }}', '{{ $service->description }}', '{{ $service->image_url }}')">Update Service</button>
+
+
+
+                  <form action="/remove-service" method="post">
+                    @csrf
+                    <input type="hidden" name="service_id" value="{{ $service->id }}">
+                  <button class="btn remove-cart-btn" type="submit">Remove Service</button>
+                  </form>
                 </div>
               </div>
             </div>
           </div>
         </div>
+      @endforeach
+
       </div>
 
       <!-- Sticky Cart Button -->
       <button class="sticky-cart-btn" onclick="openCartModal()">
-        <!-- <?xml version="1.0"  encoding="utf-8"?> -->
+        <?xml version="1.0"  encoding="utf-8"?>
         <svg fill="white" version="1.1" id="Layer_1"
           xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
           viewBox="0 0 122.9 107.5" style="enable-background: new 0 0 122.9 107.5" xml:space="preserve">
@@ -142,6 +111,13 @@
         </svg>
         <div class="notification-circle" id="cartCounter" style="display: none">0</div>
       </button>
+
+      @if(count($services) < 3)
+<button class="sticky-add-btn" onclick="openAddModal()">
+    +
+</button>
+@endif
+
 
       <!-- Cart Modal -->
       <div id="cartModal" class="cart-modal">
@@ -156,26 +132,88 @@
         </div>
       </div>
 
-      <!-- Navigation for the radio inputs -->
-      <div class="carousel-navigation">
-        <label for="item-1"></label>
-        <label for="item-2"></label>
-        <label for="item-3"></label>
-      </div>
+      <!-- Add Modal -->
+<!-- Add Modal -->
+<div id="addModal" class="cart-modal">
+  <div class="cart-modal-content">
+      <span class="close-btn" onclick="closeAddModal()">&times;</span>
+      <h2>Add A Service</h2>
+      <form action="/add-service" method="POST">
+        @csrf
+          
+          <!-- Name Field -->
+          <div class="form-group">
+              <label for="serviceName">Service Name:</label>
+              <input type="text" id="serviceName" name="name" class="form-control" placeholder="Enter service name" required>
+          </div>
+
+          <!-- Description Field -->
+          <div class="form-group">
+              <label for="serviceDescription">Description:</label>
+              <textarea id="serviceDescription" name="description" class="form-control" rows="4" placeholder="Enter a brief description" required></textarea>
+          </div>
+
+          <!-- Image URL Field -->
+          <div class="form-group">
+              <label for="serviceImageUrl">Image URL:</label>
+              <input type="url" id="serviceImageUrl" name="image_url" class="form-control" placeholder="Enter image URL" required>
+          </div>
+
+          <!-- Submit Button -->
+              <button type="submit" class="btn-submit">Add Service</button>
+      </form>
+  </div>
+</div>
+
+<div id="updateModal" class="cart-modal">
+  <div class="cart-modal-content">
+      <span class="close-btn" onclick="closeUpdateModal()">&times;</span>
+      <h2>Update A Service</h2>
+      <form action="/update-service" method="POST">
+        @csrf
+
+        <!-- Hidden input for service ID -->
+        <input type="hidden" name="service_id" id="updateServiceId">
+
+        <!-- Name Field -->
+        <div class="form-group">
+            <label for="serviceName">Service Name:</label>
+            <input type="text" id="serviceName" name="name" class="form-control" placeholder="Enter service name">
+        </div>
+
+        <!-- Description Field -->
+        <div class="form-group">
+            <label for="serviceDescription">Description:</label>
+            <textarea id="serviceDescription" name="description" class="form-control" rows="4" placeholder="Enter a brief description"></textarea>
+        </div>
+
+        <!-- Image URL Field -->
+        <div class="form-group">
+            <label for="serviceImageUrl">Image URL:</label>
+            <input type="url" id="serviceImageUrl" name="image_url" class="form-control" placeholder="Enter image URL">
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn-submit">Update Service</button>
+      </form>
+  </div>
+</div>
+
+
+
     </div>
   </div>
 
-  <footer>
-    <div class="footer-content">
-      <p>Contact us: pkguides@example.com | +123 456 7890</p>
-      <p>
-        Follow us: <a href="#" class="nav-link">Facebook</a> |
-        <a href="#" class="nav-link">Instagram</a> |
-        <a href="#" class="nav-link">Twitter</a>
-      </p>
-      <p>© 2024 PK Guides. All Rights Reserved.</p>
-    </div>
-  </footer>
-</body>
+  @endsection
 
-</html>
+
+  @section('js')
+  <script src="{{ asset('js/services.js') }}"></script>
+  @endsection
+
+  
+
+  
+<!-- </body>
+
+</html> -->

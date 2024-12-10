@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -6,20 +6,33 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PK Guides</title>
   <link rel="icon" type="image/png" href="assets/logo.png">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <link rel="stylesheet" href="{{ asset('css/about.style.css') }}">
 </head>
 
 <body>
+  <script src="{{asset('js/about.js')}}"></script> -->
 
+  @extends('layouts.master')
+
+  @section('title', 'About Us')
+
+  @section('styles')
+  <link rel="stylesheet" href="{{ asset('css/about.style.css') }}">
+  @endsection
+
+  @section('content')
   <header class="main-header">
     <section class="header-section">
       <div class="logo-container">
         <img src="assets/logo.png" alt="logo" class="logo">
       </div>
+      
       <nav class="navbar">
         <a href="/" class="nav-link">Home</a>
         <a href="/about" class="nav-link">About Us</a>
         <a href="/services" class="nav-link">Services</a>
+            <button onclick="logout()" class="nav-link logout">Logout</a>
     </nav>
     </section>
 
@@ -120,19 +133,13 @@
       </div>
     </div>
   </section>
+  @endsection
   
-  <footer>
-    <div class="footer-content">
-      <p>Contact us: pkguides@example.com | +123 456 7890</p>
-      <p>Follow us:
-        <a href="#" class="nav-link">Facebook</a> |
-        <a href="#" class="nav-link">Instagram</a> |
-        <a href="#" class="nav-link">Twitter</a>
-      </p>
-      <p>© 2024 PK Guides. All Rights Reserved.</p>
-    </div>
-  </footer>
+  @section('js')
+  <script src="{{ asset('js/about.js') }}"></script>
+  @endsection
+  
 
-</body>
+<!-- </body>
 
-</html>
+</html> -->
